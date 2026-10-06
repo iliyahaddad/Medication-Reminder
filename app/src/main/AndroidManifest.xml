@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Medication Reminder manifest.
+
+    PRIVACY: this app declares NO INTERNET permission and uses no network,
+    no Play Services, no Firebase, no analytics. All data stays on-device.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Alarms & reminders: exact dose alarms via AlarmManager. -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <!-- Dose alarms must fire while the device is idle/asleep. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Notifications (runtime permission on Android 13+). -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Reschedule alarms after device reboot. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Full-screen alarm notification with screen off (API 29+ requirement). -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
+    <!-- Vibration for alarm-style notifications. -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Optional: user may explicitly exempt the app from battery optimization
+         in onboarding so Doze does not delay alarms. -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <application
+        android:name=".MedReminderApp"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MedReminder"
+        tools:targetApi="35">
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:showWhenLocked="false"
+            android:theme="@style/Theme.MedReminder">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Fires the actual dose alarm (AlarmManager target). Minimal work:
+             goAsync() + hand-off to a coroutine; never blocks the main thread. -->
+        <receiver
+            android:name=".scheduler.AlarmReceiver"
+            android:exported="false" />
+
+        <!-- Re-schedules all alarms after device reboot. LOCKED_BOOT_COMPLETED
+             lets us restore reminders even before the user unlocks (the app is
+             direct-boot aware: Room/DataStore live in credential-protected
+             storage, so we only mark a reschedule request and run it once
+             unlocked — see BootReceiver.kdoc). -->
+        <receiver
+            android:name=".scheduler.BootReceiver"
+            android:exported="true"
+            android:directBootAware="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Handles notification action buttons (Taken / Snooze / Skip)
+             without opening the app. -->
+        <receiver
+            android:name=".notification.NotificationActionReceiver"
+            android:exported="false" />
+
+        <!-- Hilt + WorkManager integration. Tools:override removes the default
+             androidx startup initializer so we can supply WorkManager via Hilt. -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
+    </application>
+</manifest>

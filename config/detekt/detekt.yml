@@ -1,0 +1,33 @@
+build:
+  maxIssues: 0
+
+config:
+  validation: true
+  warningsAsErrors: false
+
+formatting:
+  active: false # ktlint handles formatting; detekt only checks logic rules
+
+exceptions:
+  TooGenericExceptionCaught:
+    active: false # receivers/backup validation must catch broad exceptions and recover
+
+complexity:
+  LongParameterList:
+    functionThreshold: 8
+    constructorThreshold: 10
+  ComplexMethod:
+    threshold: 25
+
+performance:
+  active: true
+
+style:
+  MagicNumber:
+    active: false # time math uses many literals (60, 24, 7...)
+  MaxLineLength:
+    maxLineLength: 120
+  UnusedPrivateMember:
+    active: true
+  EmptyClassBlock:
+    active: false
