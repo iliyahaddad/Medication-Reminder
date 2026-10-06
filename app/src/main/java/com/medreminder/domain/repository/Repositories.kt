@@ -45,17 +45,20 @@ interface DoseLogRepository {
 
     suspend fun getById(id: Long): DoseLog?
 
-    suspend fun markTaken(id: Long, atMillis: Long)
+    suspend fun markTaken(id: Long, atMillis: Long): Boolean
 
-    suspend fun markSkipped(id: Long, atMillis: Long)
+    suspend fun markSkipped(id: Long, atMillis: Long): Boolean
 
     /** Snooze: keep SCHEDULED but move the reminder time forward. */
     suspend fun snooze(id: Long, remindAtMillis: Long)
 
     suspend fun setRemindUntil(id: Long, remindUntilMillis: Long?)
 
-    /** Flip unacknowledged doses older than [graceMillis] to MISSED. Returns affected count. */
+    /** Flip unacknowledged doses older than [olderThanMillis] to MISSED. Returns affected count. */
     suspend fun markMissed(olderThanMillis: Long): Int
+
+    /** Increment the repeat-reminder counter for one dose. */
+    suspend fun incrementRepeatCount(id: Long)
 
     /** Delete every pending (SCHEDULED) occurrence strictly after [fromMillis]. */
     suspend fun deletePendingAfter(fromMillis: Long)
