@@ -25,7 +25,7 @@ jobs:
           java-version: "17"
 
       # Provisions Gradle itself, so CI does not depend on a committed wrapper JAR.
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
         with:
           gradle-version: "8.9"
 
