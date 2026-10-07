@@ -20,7 +20,7 @@ hiltNavigationCompose = "1.2.0"
 hiltWork = "1.2.0"
 
 # --- Persistence ---
-room = "2.6.1"
+room = "2.8.5"
 datastore = "1.1.1"
 
 # --- Background work ---
