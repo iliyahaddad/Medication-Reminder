@@ -36,7 +36,7 @@ coroutines = "1.9.0"
 # --- Testing ---
 junit = "4.13.2"
 turbine = "1.2.0"
-mockk = "1.13.13"
+mockk = "1.14.11"
 robolectric = "4.13"
 androidxTestCore = "1.6.1"
 androidxTestJunit = "1.2.1"
