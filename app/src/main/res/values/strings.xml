@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Med Reminder</string>
+
+    <string name="channel_doses_name">Medication doses</string>
+    <string name="channel_doses_description">Important medication dose reminders.</string>
+    <string name="channel_variant_sound_only">(sound only)</string>
+    <string name="channel_variant_vibrate_only">(vibration only)</string>
+    <string name="channel_variant_silent">(silent)</string>
+    <string name="channel_reminders_name">Follow-up reminders</string>
+    <string name="channel_reminders_description">Repeated reminders for unacknowledged doses.</string>
+    <string name="channel_alerts_name">Safety alerts</string>
+    <string name="channel_alerts_description">Low-stock and reminder reliability warnings.</string>
+
+    <string name="notification_dose_title">%1$s is due</string>
+    <string name="notification_dose_body">Take %1$s.</string>
+    <string name="notification_repeat_subtext">Repeat reminder %1$d</string>
+    <string name="notification_low_stock_title">Low stock: %1$s</string>
+    <string name="notification_low_stock_body">%1$d remaining; refill threshold is %2$d.</string>
+    <string name="notification_exact_alarm_title">Exact alarms are disabled</string>
+    <string name="notification_exact_alarm_body">Medication reminders may be delayed. Open Alarms &amp; reminders to restore precise scheduling.</string>
+
+    <string name="action_taken">Taken</string>
+    <string name="action_snooze_n">Snooze %1$d min</string>
+    <string name="action_skip">Skip</string>
+
+    <!-- Navigation & common -->
+    <string name="nav_today">Today</string>
+    <string name="nav_medicines">Medicines</string>
+    <string name="nav_stats">Stats</string>
+    <string name="nav_settings">Settings</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="export">Export</string>
+    <string name="import_label">Import</string>
+
+    <!-- Today / medications -->
+    <string name="empty_today">No doses scheduled for today.</string>
+    <string name="empty_medications">Add your first medication with the + button.</string>
+    <string name="add_medication">Add medication</string>
+    <string name="toggle_medication">Pause or resume</string>
+    <string name="action_snooze">Snooze</string>
+    <string name="status_active">Active</string>
+    <string name="status_paused">Paused</string>
+    <string name="status_scheduled">Scheduled</string>
+    <string name="status_unknown">Unknown</string>
+    <string name="stock_format">Stock: %1$d (alert at %2$d)</string>
+    <string name="field_name">Name</string>
+    <string name="field_dose">Dose</string>
+    <string name="unit_format">Unit: %1$s</string>
+    <string name="time_format">Time: %1$02d:%2$02d</string>
+
+    <!-- Stats -->
+    <string name="adherence_format">%1$d%% adherence</string>
+    <string name="stat_scheduled">Scheduled</string>
+    <string name="stat_skipped">Skipped</string>
+    <string name="stat_missed">Missed</string>
+
+    <!-- Settings -->
+    <string name="backup_title">Backup &amp; restore</string>
+    <string name="backup_description">Export creates a versioned JSON backup. Import validates the complete file before replacing local data.</string>
+    <string name="reliability_title">Reliability &amp; permissions</string>
+    <string name="allow_notifications">Allow notifications</string>
+    <string name="configure_exact_alarms">Configure exact alarms</string>
+    <string name="full_screen_alarm">Full-screen alarm</string>
+    <string name="full_screen_alarm_hint">Use only for medicines that need an alarm-style alert. Only these alarms may appear over the lock screen.</string>
+    <string name="privacy_note">Privacy: Med Reminder has no network permission and keeps medication data on this device. Backups are created only when you explicitly export them.</string>
+</resources>
